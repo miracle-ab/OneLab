@@ -1,0 +1,8 @@
+<ul class="list-group">
+  <li
+    class="list-group-item"
+    [class.active]="selectedFoodId === recipe.recipe_id"
+    *ngFor="let recipe of recipes"
+    (click)="getDishId(recipe.recipe_id)"
+  >{{ recipe.title }}</li>
+</ul>
