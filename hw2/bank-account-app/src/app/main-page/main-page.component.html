@@ -1,0 +1,67 @@
+<nav class="nav">
+    <p class="welcome" *ngIf="!toggleApp; else loggeIn">Log in to get started</p>
+    <ng-template #loggeIn>
+      <p class="welcome">Good Afternoon, Jonas!</p>
+    </ng-template>
+    <img src="/assets/images/logo.png" alt="logo" class="logo">
+    <form class="login" [formGroup]="form" (ngSubmit)="submit()">
+      <input type="text" placeholder="user" class="login__input" formControlName="user">
+      <input type="text" placeholder="PIN" maxlength="4" class="login__input" formControlName="pin">
+      <button class="login__btn" type="submit" [disabled]="form.invalid">→</button>
+    </form>
+  </nav>
+<!--[style.opacity]="toggleApp?'1':'0'"-->
+  <main class="app" [style.opacity]="toggleApp?'1':'0'">
+    <!-- BALANCE -->
+    <div class="balance">
+      <div>
+        <p class="balance__label">Current balance</p>
+        <p class="balance__date">
+          As of <span class="date"> {{loggedInTime | date:'d/M/yyyy, HH:mm' }} </span>
+        </p>
+      </div>
+      <p class="balance__value">{{currentBalance|currency:'EUR':'symbol':'3.2-2':'fr'}}</p>
+    </div>
+
+    <!-- MOVEMENTS -->
+    <div class="movements">
+      <div class="movements__row" *ngFor="let movement of movements.reverse(); let idx = index">
+        <div class="movements__type movements__type--{{movement.transferTo}}">
+          {{movement.transferTo}}
+        </div>
+        <div class="movements__date">
+          {{movement.transferDate | date: 'd/M/yyyy, HH:mm'}}
+        </div>
+        <div class="movements__value">
+          <small *ngIf="movement.minus">-</small>
+          {{movement.amount|currency:'EUR':'symbol':'1.2-2':'fr'}}
+        </div>
+      </div>
+    </div>
+
+    <!-- SUMMARY -->
+    <div class="summary">
+      <p class="summary__label">In</p>
+      <p class="summary__value summary__value--in">{{inBalance}}€</p>
+      <p class="summary__label">Out</p>
+      <p class="summary__value summary__value--out">{{outBalance}}€</p>
+      <p class="summary__label">Interest</p>
+      <p class="summary__value summary__value--interest">0000€</p>
+      <button class="btn--sort" (click)="sortSummary()">&downarrow; SORT</button>
+    </div>
+
+    <!-- OPERATION: TRANSFERS -->
+    <app-transfer-money (onTransferChanged)="getTransferData($event)"></app-transfer-money>
+
+    <!-- OPERATION: LOAN -->
+    <app-request-loan (onLoanChanged)="getTransferData($event)"></app-request-loan>
+
+    <!-- OPERATION: CLOSE -->
+    <app-close-account (onUserClosed)="getUserData($event)"></app-close-account>
+
+    <!-- LOGOUT TIMER -->
+    <p class="logout-timer">
+      You will be logged out in <span class="timer">{{counter | formatTime}}</span>
+    </p>
+
+  </main>
