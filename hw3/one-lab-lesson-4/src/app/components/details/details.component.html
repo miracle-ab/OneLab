@@ -24,3 +24,10 @@
 
 
 {{ filteredIngredients$ | async }}
+
+<div>
+  <h4>Shopping Cart</h4>
+  <ol>
+    <li *ngFor="let item of cart">{{item.recipe.title}}</li>
+  </ol>
+</div>

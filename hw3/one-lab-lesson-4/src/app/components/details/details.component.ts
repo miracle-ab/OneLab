@@ -3,7 +3,7 @@ import { Subject } from 'rxjs';
 import { mergeMap, tap } from 'rxjs/operators';
 import { ForkifyService } from 'src/app/services/forkify.service';
 import { IRecipeDetails } from '../../models/forkify.model';
-import {CartService} from "../../services/cart.service";
+import { CartService } from "../../services/cart.service";
 
 const REGEX = /[\d|/|\+]+/g;
 
@@ -53,7 +53,10 @@ export class DetailsComponent implements OnInit {
   constructor(private forkifyService: ForkifyService, private cartService: CartService) {
   }
 
-  ngOnInit() {}
+  cart: any[] = [];
+  ngOnInit() {
+    this.cart = this.cartService.getCart();
+  }
 
   addDish(id: string) {
     this.cartService.addDish(id);
