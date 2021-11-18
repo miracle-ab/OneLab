@@ -1,0 +1,9 @@
+<div class="operation operation--loan">
+  <h2>Request loan</h2>
+  <form class="form form--loan" [formGroup]="form" (ngSubmit)="submit()">
+    <input type="number" class="form__input form__input--loan-amount" formControlName="amount" />
+
+    <button class="form__btn form__btn--loan" type="submit" [disabled]="form.invalid">&rarr;</button>
+    <label class="form__label form__label--loan">Amount</label>
+  </form>
+</div>

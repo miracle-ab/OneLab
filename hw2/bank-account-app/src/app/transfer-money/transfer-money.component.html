@@ -1,0 +1,12 @@
+<div class="operation operation--transfer">
+  <h2>Transfer money</h2>
+  <form class="form form--transfer" [formGroup]="form" (ngSubmit)="submit()">
+    <input type="text" class="form__input form__input--to" formControlName="transferTo" />
+    <input type="number" class="form__input form__input--amount" formControlName="amount" />
+
+    <button class="form__btn form__btn--transfer" type="submit" [disabled]="form.invalid">&rarr;</button>
+
+    <label class="form__label">Transfer to</label>
+    <label class="form__label">Amount</label>
+  </form>
+</div>
