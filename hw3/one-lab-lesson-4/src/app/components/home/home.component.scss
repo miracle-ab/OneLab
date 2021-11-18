@@ -1,0 +1,14 @@
+.main {
+  display: flex;
+  flex-direction: row;
+
+  &__sidebar {
+    flex-grow: 0;
+    width: 300px;
+  }
+
+  &__details {
+    flex: 1;
+    display: flex;
+  }
+}

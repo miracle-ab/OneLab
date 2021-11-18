@@ -1,0 +1,33 @@
+<div class="details">
+  <ng-container *ngIf="recipe else emptyTemp">
+    <h2 class="details__title">{{ recipe.title }}</h2>
+
+    <img class="details__img" [src]="recipe?.image_url" alt="{{ recipe.title }}">
+
+    <h4 class="details__ingredients">Ingredients</h4>
+
+    <ul>
+      <li *ngFor="let ingredient of recipe?.ingredients">{{ ingredient }}</li>
+    </ul>
+  </ng-container>
+
+  <div *ngIf="recipe !== null">
+    <button type="button" class="btn btn-primary m-1" (click)="addDish(recipe.recipe_id)">Add to cart</button>
+    <button type="button" class="btn btn-danger m-1" (click)="removeDish(recipe.recipe_id)">Remove from cart</button>
+  </div>
+  <ng-template #emptyTemp>
+    <div class="pizza-logo">
+      <img class="pizza-img" src="assets/pizza-logo.jpg" alt="">
+    </div>
+  </ng-template>
+</div>
+
+
+{{ filteredIngredients$ | async }}
+
+<div>
+  <h4>Shopping Cart</h4>
+  <ol>
+    <li *ngFor="let item of cart">{{item.recipe.title}}</li>
+  </ol>
+</div>
